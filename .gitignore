@@ -1,0 +1,12 @@
+# specific filetypes
+*.swp
+*.pyc
+*.pid
+
+# specific files
+local_settings.py
+secret_key.py
+
+# directories
+static/media/
+local_settings/
