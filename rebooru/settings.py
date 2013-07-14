@@ -48,6 +48,8 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, STATIC_URL.strip('/'))
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, *MEDIA_URL.strip('/').split('/'))
 TEMPLATE_DIRS = (os.path.join(PROJECT_ROOT, 'templates'),)
 
+# our own user model
+AUTH_USER_MODEL = 'accounts.Account'
 
 STATICFILES_FINDERS = (
     'django.contrib.staticfiles.finders.FileSystemFinder',
@@ -71,12 +73,19 @@ MIDDLEWARE_CLASSES = (
 WSGI_APPLICATION = 'rebooru.wsgi.application'
 
 INSTALLED_APPS = (
+    # stock django stuff
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.admin',
+
+    # third-party stuff
+    'south',
+
+    # rebooru stuff
+    'rebooru.apps.accounts',
 )
 
 # default logging setup, which emails ADMINS with 500 errors

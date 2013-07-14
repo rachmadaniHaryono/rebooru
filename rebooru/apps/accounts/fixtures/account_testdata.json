@@ -1,0 +1,20 @@
+[
+    {
+        "pk": 1,
+        "model": "accounts.account",
+        "fields": {
+            "username": "superuser",
+            "bio": "i'm a superuser and my password is 'mypass'",
+            "is_active": true,
+            "site": "",
+            "is_superuser": true,
+            "is_staff": true,
+            "last_login": "2013-07-14T09:30:56.383Z",
+            "groups": [],
+            "user_permissions": [],
+            "password": "pbkdf2_sha256$10000$vmGnXXRn9HeQ$Q0FMSfyEU83FB8jK9gaiqW3gzrkWHVtpcIbBGAYldHw=",
+            "email": "",
+            "date_joined": "2013-07-14T09:30:49.491Z"
+        }
+    }
+]
