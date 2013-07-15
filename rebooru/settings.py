@@ -126,7 +126,6 @@ from local_settings import *
 
 # still no key?
 if not SECRET_KEY:
-    assert False
     try:
         # grab it from the file, unless there isn't one
         from secret_key import *
