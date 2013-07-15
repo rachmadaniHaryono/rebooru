@@ -8,6 +8,12 @@ class Image(models.Model):
     # the user account that uploaded the file
     uploader = models.ForeignKey(Account)
 
+    # the time the file was uploaded
+    date_uploaded = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-date_uploaded']
+
     def __unicode__(self):
         # the original filename. eventaully make this a hash of some sort
         return self.file.name.split('/')[-1]

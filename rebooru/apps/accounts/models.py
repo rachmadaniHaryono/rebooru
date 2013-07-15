@@ -82,6 +82,9 @@ class Account(AbstractBaseUser, PermissionsMixin):
     # stuff for integrating this user model into stock auth stuff
     USERNAME_FIELD = 'username'
 
+    class Meta:
+        ordering = ['-date_joined']
+
     def get_full_name(self):
         return self.username
 

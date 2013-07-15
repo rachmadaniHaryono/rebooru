@@ -1,0 +1,130 @@
+/*
+ * Generic, site-wide styles
+ */
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    font-size: 12pt;
+    font-family: Arial, Verdana, Tahoma, sans-serif;
+    background-color: #daf;
+    color: #123;
+}
+
+h1 {
+    font-size: 125%;
+}
+
+a {
+    text-decoration: none;
+    font-weight: bold;
+    color: #037;
+}
+
+li {
+    list-style-type: none;
+}
+
+.pull-left {
+    float: left;
+}
+
+.pull-right {
+    float: right;
+}
+
+/*
+ * Header and navigation
+ */
+
+header {
+    background-color: #000;
+    font-size: 120%;
+    letter-spacing: -1px;
+    white-space: nowrap;
+    width: 100%;
+    margin-bottom: 1em;
+}
+
+header a {
+    color: #daf;
+}
+
+header ul {
+    display: inline-block;
+}
+
+header ul.accounts {
+    float: right;
+}
+
+header .homelink {
+    font-size: 110%;
+}
+
+/* set the nonfunctioning stuff to bad cursor for now */
+
+header a[href='javascript:;'] {
+    cursor: not-allowed;
+}
+
+header li {
+    display: inline-block;
+    height: 2em;
+    line-height: 2em;
+    margin: 0 1em;
+    padding: 0 1em;
+}
+
+header li:hover {
+    background-color: #444;
+}
+
+header li:hover a {
+    text-shadow: 0 0 10px #daf;
+}
+
+/*
+ * User list
+ * Probably temporary, currently only exists to differentiate / from /images
+ */
+
+.recent-accounts {
+    padding: 1em;
+}
+
+.recent-accounts ul {
+    margin-left: 1em;
+}
+
+/*
+ * Image lists
+ */
+
+.recent-images {
+    padding: 1em;
+}
+
+ul.images li {
+    display: inline-block;
+    padding: 0.5em;
+    margin: 0.5em;
+}
+
+figure {
+    display: block;
+    padding: 0.5em;
+    border-radius: 6px;
+    background-color: rgba(255,255,255,0.2);
+}
+
+figure img {
+    box-shadow: 0px 0px 2px rgba(0,0,0,0.5);
+}
+
+figcaption {
+    text-align: right;
+}

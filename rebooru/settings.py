@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'south',
 
     # rebooru stuff
+    'rebooru.apps.core',
     'rebooru.apps.accounts',
     'rebooru.apps.images',
 )

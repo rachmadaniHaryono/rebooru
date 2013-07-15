@@ -5,4 +5,6 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     url(r'^admin/', include(admin.site.urls)),
+    # send anything not matched so far to core
+    url(r'^', include('rebooru.apps.core.urls')),
 )
