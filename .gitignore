@@ -8,5 +8,5 @@ local_settings.py
 secret_key.py
 
 # directories
-/rebooru/static/media/
+/rebooru/static/
 local_settings/
