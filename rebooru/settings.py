@@ -86,6 +86,7 @@ INSTALLED_APPS = (
 
     # rebooru stuff
     'rebooru.apps.accounts',
+    'rebooru.apps.images',
 )
 
 # default logging setup, which emails ADMINS with 500 errors
