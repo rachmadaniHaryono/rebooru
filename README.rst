@@ -18,8 +18,19 @@ Documentation
 
 The full documentation is at https://rebooru.readthedocs.io.
 
+This is going to eventually, hopefully, be a django booru with a deep tagging and search system.
+
 Quickstart
 ----------
+
+If you're installing this for some reason, see the requirements file.
+
+Gunicorn config is included because @xephero use it.
+
+note for gunicorn config:the SECRET_KEY setting will auto-generate the first time you run it,
+and get saved to a file and imported from that in the future.
+This is to avoid multiple servers using the same key,
+or revealing it accidentally (the file is in .gitignore).
 
 Install rebooru::
 
