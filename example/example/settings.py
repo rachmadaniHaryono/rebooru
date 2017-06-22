@@ -40,6 +40,7 @@ INSTALLED_APPS = [
 
     # if your app has other dependencies that need to be added to the site
     # they should be added here
+    'django_extensions',
 ]
 
 MIDDLEWARE_CLASSES = [
