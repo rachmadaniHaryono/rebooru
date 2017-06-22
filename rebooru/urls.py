@@ -55,4 +55,9 @@ urlpatterns = [
         view=views.TagListView.as_view(),
         name='Tag_list',
     ),
+    url(
+        regex="^$",
+        view=views.index,
+        name='index',
+    )
 ]
