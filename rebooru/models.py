@@ -12,7 +12,7 @@ class Image(TimeStampedModel):
     uploader = models.ForeignKey(User, help_text='The user account that uploaded the file.')
     date_uploaded = models.DateTimeField(
         auto_now_add=True, help_text='the time the file was uploaded.')
-    direct_url = models.URLField(help_text='direct url alternative to file.')
+    direct_url = models.URLField(help_text='direct url alternative to file.', null=True, blank=True)
 
     class Meta:
         ordering = ['-date_uploaded']
@@ -23,6 +23,11 @@ class Image(TimeStampedModel):
             return os.path.basename(self.file.name)
         except AttributeError:
             return os.path.basename(self.direct_url)
+
+    def clean(self):
+        """Either direct url or file required."""
+        if not self.direct_url and not self.file:
+            raise ValidationError('File or direct url required.')
 
 
 class Tag(TimeStampedModel):
