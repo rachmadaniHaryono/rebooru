@@ -30,32 +30,7 @@ urlpatterns = [
         view=views.ImageListView.as_view(),
         name='Image_list',
     ),
-	url(
-        regex="^User/~create/$",
-        view=views.UserCreateView.as_view(),
-        name='User_create',
-    ),
     url(
-        regex="^User/(?P<pk>\d+)/~delete/$",
-        view=views.UserDeleteView.as_view(),
-        name='User_delete',
-    ),
-    url(
-        regex="^User/(?P<pk>\d+)/$",
-        view=views.UserDetailView.as_view(),
-        name='User_detail',
-    ),
-    url(
-        regex="^User/(?P<pk>\d+)/~update/$",
-        view=views.UserUpdateView.as_view(),
-        name='User_update',
-    ),
-    url(
-        regex="^User/$",
-        view=views.UserListView.as_view(),
-        name='User_list',
-    ),
-	url(
         regex="^Tag/~create/$",
         view=views.TagCreateView.as_view(),
         name='Tag_create',
@@ -80,4 +55,4 @@ urlpatterns = [
         view=views.TagListView.as_view(),
         name='Tag_list',
     ),
-	]
+]

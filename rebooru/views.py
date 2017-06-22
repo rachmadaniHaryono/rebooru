@@ -8,9 +8,8 @@ from django.views.generic import (
 )
 
 from .models import (
-	Image,
-	User,
-	Tag,
+    Image,
+    Tag,
 )
 
 
@@ -37,31 +36,6 @@ class ImageUpdateView(UpdateView):
 class ImageListView(ListView):
 
     model = Image
-
-
-class UserCreateView(CreateView):
-
-    model = User
-
-
-class UserDeleteView(DeleteView):
-
-    model = User
-
-
-class UserDetailView(DetailView):
-
-    model = User
-
-
-class UserUpdateView(UpdateView):
-
-    model = User
-
-
-class UserListView(ListView):
-
-    model = User
 
 
 class TagCreateView(CreateView):
