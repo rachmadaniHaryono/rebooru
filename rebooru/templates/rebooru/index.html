@@ -1,6 +1,9 @@
-{% extends 'base.html' %}
+{% extends 'rebooru/base.html' %}
 
-{% block main %}
+{% block title %}Rebooru{% endblock %}
+
+{% block content %}
+{% include "rebooru/search.html" %}
 <div class="recent-images">
   <h1>Recent images</h1>
   <ul class="images">
