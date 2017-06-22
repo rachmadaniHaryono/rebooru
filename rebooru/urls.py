@@ -1,10 +1,83 @@
-from django.conf.urls import patterns, include, url
-from django.contrib import admin
+# -*- coding: utf-8 -*-
+from django.conf.urls import url
+from django.views.generic import TemplateView
 
-admin.autodiscover()
+from . import views
 
-urlpatterns = patterns('',
-    url(r'^admin/', include(admin.site.urls)),
-    # send anything not matched so far to core
-    url(r'^', include('rebooru.apps.core.urls')),
-)
+urlpatterns = [
+    url(
+        regex="^Image/~create/$",
+        view=views.ImageCreateView.as_view(),
+        name='Image_create',
+    ),
+    url(
+        regex="^Image/(?P<pk>\d+)/~delete/$",
+        view=views.ImageDeleteView.as_view(),
+        name='Image_delete',
+    ),
+    url(
+        regex="^Image/(?P<pk>\d+)/$",
+        view=views.ImageDetailView.as_view(),
+        name='Image_detail',
+    ),
+    url(
+        regex="^Image/(?P<pk>\d+)/~update/$",
+        view=views.ImageUpdateView.as_view(),
+        name='Image_update',
+    ),
+    url(
+        regex="^Image/$",
+        view=views.ImageListView.as_view(),
+        name='Image_list',
+    ),
+	url(
+        regex="^User/~create/$",
+        view=views.UserCreateView.as_view(),
+        name='User_create',
+    ),
+    url(
+        regex="^User/(?P<pk>\d+)/~delete/$",
+        view=views.UserDeleteView.as_view(),
+        name='User_delete',
+    ),
+    url(
+        regex="^User/(?P<pk>\d+)/$",
+        view=views.UserDetailView.as_view(),
+        name='User_detail',
+    ),
+    url(
+        regex="^User/(?P<pk>\d+)/~update/$",
+        view=views.UserUpdateView.as_view(),
+        name='User_update',
+    ),
+    url(
+        regex="^User/$",
+        view=views.UserListView.as_view(),
+        name='User_list',
+    ),
+	url(
+        regex="^Tag/~create/$",
+        view=views.TagCreateView.as_view(),
+        name='Tag_create',
+    ),
+    url(
+        regex="^Tag/(?P<pk>\d+)/~delete/$",
+        view=views.TagDeleteView.as_view(),
+        name='Tag_delete',
+    ),
+    url(
+        regex="^Tag/(?P<pk>\d+)/$",
+        view=views.TagDetailView.as_view(),
+        name='Tag_detail',
+    ),
+    url(
+        regex="^Tag/(?P<pk>\d+)/~update/$",
+        view=views.TagUpdateView.as_view(),
+        name='Tag_update',
+    ),
+    url(
+        regex="^Tag/$",
+        view=views.TagListView.as_view(),
+        name='Tag_list',
+    ),
+	]
