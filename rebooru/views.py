@@ -6,6 +6,7 @@ from django.views.generic import (
     UpdateView,
     ListView
 )
+from django.shortcuts import render_to_response
 
 from .models import (
     Image,
@@ -62,3 +63,10 @@ class TagListView(ListView):
 
     model = Tag
 
+
+def index(request):
+    """Just displays some images"""
+    context = {
+            'images': Image.objects.all()[:20],
+    }
+    return render_to_response('rebooru/index.html', context)
