@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block main %}
+<div class="recent-images">
+  <h1>Recent images</h1>
+  <ul class="images">
+    {% for image in images %}
+    <li>
+      <figure>
+        {% if image.file %}
+        <a href="{{ image.file.url }}">
+          <img src="{{ image.file.url }}" width="300"> </a>
+        {% elif image.direct_url %}
+        <a href="{{ image.direct_url }}">
+          <img src="{{ image.direct_url }}" width="300">
+        </a>
+        {% endif %}
+        <figcaption>Uploaded by {{ image.uploader.username }}<br>{{ image.date_uploaded|timesince }} ago</figcaption>
+      </figure>
+    </li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
