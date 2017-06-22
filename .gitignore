@@ -2,6 +2,7 @@
 *.swp
 *.pyc
 *.pid
+*.old
 
 # specific files
 local_settings.py
