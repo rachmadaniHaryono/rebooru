@@ -23,3 +23,13 @@ class TestRebooru(TestCase):
 
     def tearDown(self):
         pass
+
+
+def test_save_direct_url_twice():
+    user = User(username='name')
+    user.save()
+    img = models.Image(direct_url='http://i.imgur.com/RBqNZki.jpg', uploader=user)
+    img.save()
+    img2 = models.Image(direct_url='http://i.imgur.com/RBqNZki.jpg', uploader=user)
+    with pytest.raises(ValidationError):
+        img2.save()
