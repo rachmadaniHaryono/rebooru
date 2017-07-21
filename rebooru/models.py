@@ -10,14 +10,19 @@ from model_utils.models import TimeStampedModel
 
 class Tag(TimeStampedModel):
     name = models.CharField(max_length=128)
-    creator = models.BooleanField()
-    series = models.BooleanField()
+    namespace = models.CharField(max_length=128)
+    creator = models.BooleanField(default=False)
+    series = models.BooleanField(default=False)
+    character = models.BooleanField(default=False)
 
-    def save(self):
-        if(self.creator and self.series):
-            raise ValidationError("a tag cannot be both a creator and a series")
-        else:
-            super(Tag, self).save()
+    def save(self, *args, **kwargs):
+        if self.namespace == 'creator':
+            self.creator = True
+        elif self.namespace == 'series':
+            self.series = True
+        elif self.namespace == 'character':
+            self.character = True
+        super(Tag, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.name
@@ -30,10 +35,12 @@ class ImageManager(models.Manager):
         return image
 
 class Image(TimeStampedModel):
+    RATING_UNKNOWN = -1
     RATING_SAFE = 0
     RATING_QUESTIONABLE = 1
     RATING_EXPLICIT = 2
     RATING_CHOICES = (
+        (RATING_UNKNOWN, 'unknown'),
         (RATING_SAFE, 'safe'),
         (RATING_QUESTIONABLE, 'questionable'),
         (RATING_EXPLICIT, 'explicit'),
@@ -44,7 +51,7 @@ class Image(TimeStampedModel):
         auto_now_add=True, help_text='the time the file was uploaded.')
     direct_url = models.URLField(help_text='direct url alternative to file.', null=True, blank=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    rating = models.IntegerField(default=RATING_SAFE, choices=RATING_CHOICES)
+    rating = models.IntegerField(default=RATING_UNKNOWN, choices=RATING_CHOICES)
 
     objects = ImageManager()
 
@@ -77,3 +84,7 @@ class Image(TimeStampedModel):
             raise ValidationError("rating must be safe, questionable, or explicit.")
         else:
             super().save(**kwargs)
+
+
+class URLModel(TimeStampedModel):
+    pass
