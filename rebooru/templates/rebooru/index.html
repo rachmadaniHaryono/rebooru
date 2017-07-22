@@ -2,47 +2,20 @@
 
 {% block title %}Rebooru{% endblock %}
 
-{% block css %}
-{{ block.super }}
-<style>
-div.gallery {
-    margin: 5px;
-    border: 1px solid #ccc;
-    float: left;
-    width: 320px;
-}
-
-div.gallery:hover {
-    border: 1px solid #777;
-}
-
-div.gallery img {
-    width: 100%;
-    height: auto;
-}
-
-div.desc {
-    padding: 15px;
-    text-align: center;
-}
-</style>
-{% endblock css %}
-
 {% block content %}
 {% include "rebooru/search.html" %}
-<div class="recent-images">
-  <h1>Recent images</h1>
+<h1>Recent images</h1>
+<div class="recent-images card-columns">
   {% for image in images %}
-  <div class="gallery">
-  {% if image.file %}
-  <a href="{{ image.file.url }}">
-      <img src="{{ image.file.url }}" width="300"> </a>
-  {% elif image.direct_url %}
-  <a href="{{ image.direct_url }}">
-      <img src="{{ image.direct_url }}" width="300">
-  </a>
-  {% endif %}
-  <div class="desc">Uploaded by {{ image.uploader.username }}<br>{{ image.date_uploaded|timesince }} ago</div>
+  <div class="card">
+    {% if image.file %}
+    <a href="{{ image.file.url }}">
+      <img src="{{ image.file.url }}" class="card-img-top img-fluid" width="300"> </a>
+    {% elif image.direct_url %}
+    <a href="{{ image.direct_url }}">
+      <img src="{{ image.direct_url }}" class="card-img-top img-fluid" width="300">
+    </a>
+    {% endif %}
   </div>
   {% endfor %}
 </div>
