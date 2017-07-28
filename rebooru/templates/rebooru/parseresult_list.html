@@ -1,0 +1,15 @@
+{% extends 'rebooru/base.html' %}
+
+{% block content %}
+  <h2>Parse Result History</h2>
+  <table>
+    <th>URL</th>
+    <th>TYPE</th>
+    {% for entry in object_list %}
+    <tr>
+      <td>{{ entry.url_entry_on_table }}</td>
+      <td>{{ entry.type_verbose }}</td>
+    </tr>
+    {% endfor %}
+  </table>
+{% endblock %}
