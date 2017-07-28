@@ -1,0 +1,9 @@
+[Core]
+Name = general parser
+Module = general_parser
+
+[Documentation]
+Author = Rachmadani Haryono
+Version = 0.1
+Description = general parser
+website = https://github.com/rachmadaniHaryono/rebooru
