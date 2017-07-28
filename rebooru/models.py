@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import os
+from urllib.parse import unquote
 
 from django.db import models
 from django.contrib.auth.models import User
@@ -86,5 +87,29 @@ class Image(TimeStampedModel):
             super().save(**kwargs)
 
 
-class URLModel(TimeStampedModel):
-    pass
+class QueryModel(TimeStampedModel):
+    query = models.CharField(max_length=255)
+
+
+class ParseResult(TimeStampedModel):
+    TYPE_UNKNOWN = -1
+    TYPE_PAGE = 0
+    TYPE_IMAGE = 1
+    TYPE_VIDEO = 2
+    TYPE_CHOICES = (
+        (TYPE_UNKNOWN, 'unknown'),
+        (TYPE_PAGE, 'page'),
+        (TYPE_IMAGE, 'image'),
+        (TYPE_VIDEO, 'video'),
+    )
+    url = models.URLField(help_text='URL result')
+    source_url = models.URLField(help_text='Source url')
+    type = models.IntegerField(default=TYPE_UNKNOWN, choices=TYPE_CHOICES)
+    query = models.ForeignKey(QueryModel)
+
+    def type_verbose(self):
+        return dict(ParseResult.TYPE_CHOICES)[self.type]
+
+    def url_entry_on_table(self):
+        unquoted_url = unquote(self.url)
+        return unquoted_url.split('://', 1)[1]
