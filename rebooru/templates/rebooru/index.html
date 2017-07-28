@@ -9,14 +9,16 @@
   {% for image in images %}
   <div class="card">
     {% if image.file %}
-    <a href="{{ image.file.url }}">
-      <img src="{{ image.file.url }}" class="card-img-top img-fluid" width="300"> </a>
+    <a href="{% url 'rebooru:Image_detail' image.id %}">
+      <img src="{{ image.file.url }}" class="card-img-top img-fluid"> </a>
     {% elif image.direct_url %}
-    <a href="{{ image.direct_url }}">
-      <img src="{{ image.direct_url }}" class="card-img-top img-fluid" width="300">
+    <a href="{% url 'rebooru:Image_detail' image.id %}">
+      <img src="{{ image.direct_url }}" class="card-img-top img-fluid">
     </a>
     {% endif %}
   </div>
+  {% empty %}
+  <p>No Image yet.</p>
   {% endfor %}
 </div>
 {% endblock %}
