@@ -9,6 +9,7 @@ Tests for `rebooru` models module.
 """
 
 from django.test import TestCase
+import pytest
 
 from rebooru import models
 
@@ -24,12 +25,9 @@ class TestRebooru(TestCase):
     def tearDown(self):
         pass
 
-
-def test_save_direct_url_twice():
-    user = User(username='name')
+@pytest.mark.django_db(transaction=True)
+def test_save():
+    user = models.User(username='name')
     user.save()
     img = models.Image(direct_url='http://i.imgur.com/RBqNZki.jpg', uploader=user)
     img.save()
-    img2 = models.Image(direct_url='http://i.imgur.com/RBqNZki.jpg', uploader=user)
-    with pytest.raises(ValidationError):
-        img2.save()
