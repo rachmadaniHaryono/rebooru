@@ -3,9 +3,11 @@ import os
 from urllib.parse import urlparse, urljoin
 
 import requests
+import django
 from bs4 import BeautifulSoup
 from django.contrib.auth.models import User
 from django.shortcuts import render_to_response
+from yapsy.PluginManager import PluginManager
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -16,8 +18,11 @@ from django.views.generic import (
 
 from .models import (
     Image,
+    ParseResult,
+    QueryModel,
     Tag,
 )
+from . import plugin
 
 
 class ImageCreateView(CreateView):
@@ -70,6 +75,11 @@ class TagListView(ListView):
     model = Tag
 
 
+class ParseResultListView(ListView):
+
+    model = ParseResult
+
+
 def filter_image_url(urls):
     for url in urls:
         path = urlparse(url).path
@@ -104,28 +114,36 @@ def index(request):
         }
         return render_to_response('rebooru/index.html', context)
 
+
     query_parts = query.split(' ')
     url = next((x for x in query_parts if x.startswith(('http:', 'https:'))), None)
     depth = next((x for x in query_parts if x.startswith('depth:')), None)
+
 
     if url is None:
         return render_to_response('rebooru/index.html', {'images': []})
     if depth is not None:
         depth = int(depth.split(':', 1)[1])
 
-    parsed_urls = list(parse_url(url))
-    img_urls = list(filter_image_url(parsed_urls))
-    if depth == 1:
-        non_img_urls = [x for x in parsed_urls if x not in img_urls]
-        purls_d1 = list(map(parse_url, non_img_urls))
-        [img_urls.extend(filter_image_url(list(x))) for x in purls_d1]
+    parse_results = list(plugin.parse_url(url))
 
     user, _ = User.objects.get_or_create(username='default_user', password='1234')
     url_tag = url.split(':', 1)
-    tag = Tag.objects.get_or_create(name=url_tag[1], namespace=[0])
+    tag, _ = Tag.objects.get_or_create(name=url_tag[1], namespace=[0])
     img_object = []
-    for img_url in img_urls:
+    query_model, _ = QueryModel.objects.get_or_create(query=query)
+    for item in parse_results:
+        item['query'] = query_model
+        ParseResult.objects.get_or_create(**item)
+        if item['type'] != ParseResult.TYPE_IMAGE:
+            continue
+        img_url = item['url']
         im, _ = Image.objects.get_or_create(uploader=user, direct_url=img_url)
+        im.tags.add(tag)
+        try:
+            im.save()
+        except django.core.exceptions.ValidationError:
+            pass
         img_object.append(im)
 
     return render_to_response('rebooru/index.html', {'images': img_object})

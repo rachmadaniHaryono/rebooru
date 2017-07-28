@@ -56,6 +56,11 @@ urlpatterns = [
         name='Tag_list',
     ),
     url(
+        regex="^ParseResult/$",
+        view=views.ParseResultListView.as_view(),
+        name='ParseResult_list',
+    ),
+    url(
         regex="^$",
         view=views.index,
         name='index',
